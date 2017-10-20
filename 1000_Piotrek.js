@@ -1,5 +1,5 @@
 var arrayOfContacts = new Array();
-arrayOfContacts.push(sampleContact);
+
 var sampleContact =
 {
   firstName : "Piotr",
@@ -13,6 +13,8 @@ var sampleContact =
     },
   www : "www.jsApp.com"
 };
+
+arrayOfContacts.push(sampleContact);
 
 function showContacts(array)
 {
