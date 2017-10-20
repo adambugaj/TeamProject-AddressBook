@@ -14,12 +14,27 @@ var sampleContact =
   www : "www.jsApp.com"
 };
 
+var sampleContact1 =
+    {
+        firstName : "Bill",
+        lastName : "Gates",
+        email : "xxx@gmail.com",
+        company : "Microsoft",
+        localization :
+            {
+                country : "USA",
+                city : "San Francisco",
+            },
+        www : "www.microsoft.com"
+    };
+
 arrayOfContacts.push(sampleContact);
+arrayOfContacts.push(sampleContact1);
 
 function showContacts(array)
 {
     for(var i = 0; i < array.length; i++)
     {
-        document.getElementById("name").innerHTML = array[i].firstName + " " + array[i].lastName;
+        $("#list").append(array[i].firstName + " " + array[i].lastName + "<br/>");
     }
 };
