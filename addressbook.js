@@ -4,6 +4,9 @@ function createContact(firstName, lastName, phoneNumber, email) {
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.email = email;
+    this.contactList = function() {
+        return this.firstName;
+    }
 }
 
 var sampleContact = {
@@ -11,6 +14,7 @@ var sampleContact = {
   lastName: "Door",
   phoneNumber: "01 294 323 434",
   email: "billdoor@microsoft.com",
+  contactList
 }
 
 var contactList = [sampleContact];
@@ -18,7 +22,7 @@ var contactList = [sampleContact];
 
 //onload sample contact
 function showSampleContact() {
-  document.getElementById('contactTitle').innerHTML = sampleContact.firstName + " " + sampleContact.lastName;    
+  document.getElementById('contactTitle').innerHTML = sampleContact.contactList;    
   document.getElementById('firstName').innerHTML = sampleContact.firstName;
   document.getElementById('lastName').innerHTML = sampleContact.lastName;
   document.getElementById('phoneNumber').innerHTML = sampleContact.phoneNumber;
