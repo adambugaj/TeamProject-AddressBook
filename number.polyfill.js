@@ -4,7 +4,7 @@ Usage:
     foo.isPositive() returns true
 
     var bar = -223
-    foo.isPositive() returns false
+    bar.isPositive() returns false
 */
 
 /* First, check if functionality already exists */
