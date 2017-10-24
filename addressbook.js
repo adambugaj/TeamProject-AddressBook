@@ -1,12 +1,13 @@
 
-// button required to use
-function addContact(firstName, lastName, phoneNumber, email) { 
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phoneNumber = phoneNumber;
-    this.email = email;
-    this.contactList = function() {
-        return this.firstName + " " + this.lastName;
+function createContact(firstName, lastName, phoneNumber, email) { 
+    return{
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: email,
+        getFullName: function(){
+            return firstName + " " + this.lastName;
+        }
     }
 }
 
@@ -17,23 +18,18 @@ var sampleContact = {
   email: "billdoor@microsoft.com",
 }
 
-var contactList = [sampleContact];
-
-//contactList[contactList.length] = new addContact("John","Towel","40321241","johntowel@mail.com");
-var getFirstName = document.getElementById("putFirstName")
-
-function tryThis() {
-    
-    var newContact = new addContact(getFirstName.value);
-    contactList.push(newContact);
-    
-}
+var contactList = [createContact(
+    sampleContact.firstName, 
+    sampleContact.lastName,
+    sampleContact.phoneNumber, 
+    sampleContact.email
+)];
 
 //onload sample contact
-function showContact() {
-  document.getElementById('contactTitle').innerHTML = contactList[1].contactList();    
-  document.getElementById('firstName').innerHTML = contactList[1].firstName;
+function showContact(contactObj) {
+  document.getElementById('contactTitle').innerHTML = contactObj.getFullName();    
+  document.getElementById('firstName').innerHTML = contactObj.firstName;
+  document.getElementById('lastName').innerHTML = contactObj.lastName;
+  document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
+  document.getElementById('email').innerHTML = contactObj.email;
 }
-
-//check test
-document.write('html')
