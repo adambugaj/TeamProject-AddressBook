@@ -42,6 +42,8 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 
     var newContact = new createContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
+    // show a contact
+    showContact(newContact)
     e.preventDefault();
 });
 
