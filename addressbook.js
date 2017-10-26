@@ -26,9 +26,17 @@ var contactList = [createContact(
 
 //onload sample contact
 function showContact(contactObj) {
-  document.getElementById('contactTitle').innerHTML = contactObj.getFullName();
-  document.getElementById('firstName').innerHTML = contactObj.firstName;
-  document.getElementById('lastName').innerHTML = contactObj.lastName;
+  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.getFullName()+'</h4>'  
+    
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName">'+contactObj.firstName+'</span></h5></li>';
+    
+//  document.getElementById('contactList').innerHTML = '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName">'+contactObj.lastName+'</span></h5></li>';
+    
+    
+    
+    
+    
+    
   document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
   document.getElementById('email').innerHTML = contactObj.email;
 }
@@ -40,10 +48,37 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
     var inputEmail = document.getElementById("inputEmail").value;
 
+//create a contact
     var newContact = new createContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
-    // show a contact
-    showContact(newContact)
+//save the contact    
+    contactList.push(newContact);
+    
     e.preventDefault();
 });
+
+//click to show the list of saved contacts
+document.getElementById('showContactList').addEventListener('click', function(){
+    contactList.forEach(function(index){
+    showContact(index);
+        
+    });
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
