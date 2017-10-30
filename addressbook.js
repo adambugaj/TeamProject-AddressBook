@@ -81,7 +81,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 });
 
 
-//click to show the list of saved contact list
+//click to show the list of saved contact
 document.getElementById('showContactList').addEventListener('click', function(){
     
     //close the form of Sample Contact
