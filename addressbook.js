@@ -48,6 +48,8 @@ function showList(contactObj) {
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
     
+  document.getElementById('contactList').innerHTML += '<button onclick="deleteContact()" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button>'
+    
 }
 
 //click a button to create a new contact and show it in the list
@@ -60,7 +62,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 //create a contact
     var newContact = new createContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
-    console.log(phoneNumberString);
+ 
     
 //save the contact but first fill all blank spaces
     if (inputFirstName === "") {
@@ -89,17 +91,23 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 
 
 //click to show the list of saved contacts
-document.getElementById('showContactList').addEventListener('click', function(){
+document.getElementById("showContactList").addEventListener('click', function(){
     
     //close the form of Sample Contact
     document.getElementById("contactList").style.display = "block";
     // Looping through the object of contacts
     contactList.forEach(function(index){
     showList(index);
-        
-    });
+           console.log(contactList);
+    })
     
 });
+
+// Delete saved contact
+function deleteContact() {
+        contactList.pop();
+        console.log(contactList[0].firstName);
+    };
 
 
 // To do: remove sample contact when contacts button clicked
