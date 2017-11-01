@@ -61,7 +61,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var phoneNumberString = Number(inputPhoneNumber);
 //create a contact
     var newContact = new createContact(inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
-    
+    showContact(newContact);
  
     
 //save the contact but first fill all blank spaces
@@ -86,6 +86,11 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         showContact(newContact);
     }
     
+    //show saved contacts
+    contactList.forEach(function(index) {
+        showList(index);
+    });
+    
     e.preventDefault();
 });
 
@@ -98,7 +103,6 @@ document.getElementById("showContactList").addEventListener('click', function(){
     // Looping through the object of contacts
     contactList.forEach(function(index){
     showList(index);
-           console.log(contactList);
     })
     
 });
@@ -106,7 +110,8 @@ document.getElementById("showContactList").addEventListener('click', function(){
 // Delete saved contact
 function deleteContact() {
         contactList.pop();
-        console.log(contactList[0].firstName);
+        console.log(contactList);
+        
     };
 
 
