@@ -46,17 +46,17 @@ function showContact(contactObj) {
 
 //show the list of contacts
 function showList(contactObj) {
-  document.getElementById('contactList').innerHTML += '<hr><h4 id="contactTitle">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName">'+contactObj.firstName+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1">'+contactObj.firstName+'</span></h5></li>';
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName">'+contactObj.lastName+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber">'+contactObj.phoneNumber+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span></h5></li>';
 
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email">'+contactObj.email+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span></h5></li>';
     
-   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton()" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button>'    
+   document.getElementById('contactList').innerHTML += '<button  style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
     
 }
 
@@ -129,7 +129,7 @@ document.getElementById('showContactList').addEventListener('click', function(){
 //    });
 //    console.log(uniqueID);
 //}
-//
-//$('#deleteButton').on("click", function(e){
-//    console.log("it works!");
-//});
+
+$('#contactList').on("click", '#deleteButton', function(event){
+   $(event.target).closest('#contactList').remove();
+});
