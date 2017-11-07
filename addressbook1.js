@@ -56,7 +56,7 @@ function showList(contactObj) {
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span></h5></li>';
     
-   document.getElementById('contactList').innerHTML += '<button  style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
+   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton()" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
     
 }
 
@@ -120,16 +120,33 @@ document.getElementById('showContactList').addEventListener('click', function(){
     
 });
 
-//function deleteButton() {
-//    if (contactList.pop())
-//    contactList.forEach(function(index){
-//        document.getElementById('contactList').innerHTML = ''
-//        showList(index);
-//        console.log(index);
-//    });
-//    console.log(uniqueID);
-//}
 
-$('#contactList').on("click", '#deleteButton', function(event){
-   $(event.target).closest('#contactList').remove();
-});
+function deleteButton() {
+    //check console for error
+    console.log("good")
+    
+    // iterate through contactList and match the name (contact) to delete
+    for (var i = 0; i < contactList.length; i++) {
+        console.log(contactList[i].firstName, $('#firstName1').text());
+        // if name in a contact is the same, delete
+        if ($('#firstName1').text() === contactList[i].firstName) {
+            contactList.splice(i, 1);
+            console.log("success", contactList);
+        }
+        else { 
+            console.log("Not good");
+        }
+    }
+    //refresh contact list
+    document.getElementById('contactList').innerHTML = '';
+    contactList.forEach(function(index){
+        showList(index);
+    })
+    
+ 
+};
+
+//
+//$('#contactList').on("click", '#deleteButton', function(){
+//    var i = $('#firstName1').text();
+//});
