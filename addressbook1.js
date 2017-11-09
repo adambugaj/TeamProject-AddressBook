@@ -17,7 +17,7 @@ function createContact(id, firstName, lastName, phoneNumber, email) {
 }
 
 //unique ID of the sample contact
-var uniqueID = 1;
+var uniqueID = 0;
 
 var sampleContact = {
   id: uniqueID,
@@ -81,9 +81,9 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 
     } else if (inputEmail === "") {
         alert("Please type email");
-    }
+    } 
      else {
-         
+
       //create a contact
       var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
 
@@ -93,16 +93,22 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         document.getElementById("contactSubmit").style.display = "block";
          document.getElementById("contactList").style.display = "none";
         showContact(newContact);
-    }
-    
-    
+        
+         }
+
+        if (contactList[0].id === 0) 
+        contactList.shift();
+           
+
+  
     
     e.preventDefault();
 });
 
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
- console.log(firstName);
+    
+    console.log(contactList[0].id)
     // close the sample contact if shown
     document.getElementById("contactSubmit").style.display = "none";
     
@@ -131,13 +137,15 @@ function deleteButton(idNumber) {
         console.log(contactList[i].id === Number(idNumber));
         
         // if name in a contact is the same, delete it
-         if (contactList[i].id === Number(idNumber));
+         if (contactList[i].id === Number(idNumber)) {
         
             //contactList.splice(i,1);
         
             document.getElementById("firstName1").innerHTML = '';
         
             console.log(contactList[i].id);
+         } 
+            
     }
     //refresh contact list
     document.getElementById('contactList').innerHTML = '';
