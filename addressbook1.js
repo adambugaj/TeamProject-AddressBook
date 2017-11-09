@@ -122,26 +122,40 @@ document.getElementById('showContactList').addEventListener('click', function(){
 
 function deleteButton(idNumber) {
     //check console for error
-    console.log(Number(idNumber))
-    
+    console.log(Number(idNumber));
+    console.log(jQuery.type());
+
+
     // iterate through contactList and match the name (contact) to delete
     for (var i = 0; i < contactList.length; i++) {
-        console.log(contactList[0].id);
+        console.log(contactList[i].id === Number(idNumber));
+        
         // if name in a contact is the same, delete it
-        if (contactList[i].id === Number(idNumber + 1));
-            contactList.splice(i, 1);
-
+         if (contactList[i].id === Number(idNumber));
+        
+            //contactList.splice(i,1);
+        
+            document.getElementById("firstName1").innerHTML = '';
+        
+            console.log(contactList[i].id);
     }
     //refresh contact list
     document.getElementById('contactList').innerHTML = '';
     contactList.forEach(function(index){
     showList(index);
     })
+    //    $('#contactList').children().each(function(){
+//    $(this).filter('#firstName').remove();
+//   });
 };
+
+
 
 function addPhone() {
     alert("works");
 }
+
+
 
 
 
