@@ -68,7 +68,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var phoneNumberString = Number(inputPhoneNumber);
     
 //save the contact but first fill all blank spaces
-    if (inputFirstName === "") {
+    if (inputFirstName.value === "") {
         alert("Please type first name");
     } else if (inputLastName === "") {
         alert("Please type last name")
@@ -91,15 +91,21 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         //show the contact
         
         document.getElementById("contactSubmit").style.display = "block";
-         document.getElementById("contactList").style.display = "none";
+        document.getElementById("contactList").style.display = "none";
         showContact(newContact);
         
+         //clear the contact form
+         document.getElementById("inputFirstName").value = "";
+         document.getElementById("inputLastName").value = "";
+         document.getElementById("inputPhoneNumber").value = "";
+         document.getElementById("inputEmail").value = "";
          }
-
+    
+    //delete sample contact when adding a new contact
         if (contactList[0].id === 0) 
         contactList.shift();
            
-
+        
   
     
     e.preventDefault();
@@ -141,17 +147,22 @@ function deleteButton(idNumber) {
         
             //contactList.splice(i,1);
         
-            document.getElementById("firstName1").innerHTML = '';
+            
         
             console.log(contactList[i].id);
          } 
             
     }
     //refresh contact list
-    document.getElementById('contactList').innerHTML = '';
     contactList.forEach(function(index){
+    document.getElementById("contactList").innerHTML = '';
     showList(index);
+        
     })
+   
+    
+    
+    
     //    $('#contactList').children().each(function(){
 //    $(this).filter('#firstName').remove();
 //   });
