@@ -76,7 +76,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         alert("Please type phone number")
     }
         // alert if user provided not a number
-      else if (phoneNumberString !== Number(inputPhoneNumber)) {
+      else if (Number.isInteger(phoneNumberString) === false) {
           alert("Not number");
 
     } else if (inputEmail === "") {
@@ -140,15 +140,12 @@ function deleteButton(idNumber) {
 
     // iterate through contactList and match the name (contact) to delete
     for (var i = 0; i < contactList.length; i++) {
-        console.log(contactList[i].id === Number(idNumber));
+        console.log(contactList[i].id === idNumber);
         
         // if name in a contact is the same, delete it
-         if (contactList[i].id === Number(idNumber)) {
+         if (contactList[i].id === idNumber) {
         
-            //contactList.splice(i,1);
-        
-            
-        
+            contactList.splice(i,1);
             console.log(contactList[i].id);
          } 
             
