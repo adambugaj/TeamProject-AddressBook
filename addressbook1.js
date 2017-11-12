@@ -196,7 +196,16 @@ function addPhone() {
     
     console.log(contactList);
     
+         document.getElementById("contactList").innerHTML = '';
+    contactList.forEach(function(index){
+        showList(index);
+       
+    });
     
+    console.log(contactList);
+    console.log(typeof addNumberPhone.toString());
+    console.log(Number.isInteger(addNumberPhone));
+}
     
 /*    document.getElementById("contactList").innerHTML = '';
     contactList.forEach(function(index){
@@ -216,16 +225,7 @@ function addPhone() {
     if (addNumberPhone.isInteger === true)
             contactList[0].phoneNumber = addNumberPhone;*/
     
-     document.getElementById("contactList").innerHTML = '';
-    contactList.forEach(function(index){
-        showList(index);
-       
-    });
-    
-    console.log(contactList);
-    console.log(typeof addNumberPhone.toString());
-    console.log(Number.isInteger(addNumberPhone));
-}
+
 
 
 
