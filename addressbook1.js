@@ -48,7 +48,7 @@ function showContact(contactObj) {
 function showList(contactObj) {
   document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1">'+contactObj.firstName+'</span></h5></li>';
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span></h5></li>';
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
@@ -56,7 +56,7 @@ function showList(contactObj) {
 
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
     
-   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton(\''+contactObj.id+'\')" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
+   document.getElementById('contactList').innerHTML += '<button onclick="deleteButton('+contactObj.id+')" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
 }
 
 //click a button to create a new contact and show it in the list
@@ -95,10 +95,10 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         showContact(newContact);
         
          //clear the contact form
-         document.getElementById("inputFirstName").value = "";
+ /*        document.getElementById("inputFirstName").value = "";
          document.getElementById("inputLastName").value = "";
          document.getElementById("inputPhoneNumber").value = "";
-         document.getElementById("inputEmail").value = "";
+         document.getElementById("inputEmail").value = "";*/
          }
     
     //delete sample contact when adding a new contact
@@ -114,7 +114,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
     
-    console.log(contactList[0].id)
+  
     // close the sample contact if shown
     document.getElementById("contactSubmit").style.display = "none";
     
@@ -134,41 +134,75 @@ document.getElementById('showContactList').addEventListener('click', function(){
 
 function deleteButton(idNumber) {
     //check console for error
-    console.log(Number(idNumber));
-    console.log(jQuery.type());
+/*    
+    console.log(sampleContact.firstName);
 
+
+    delete sampleContact.firstName;
+    console.log(sampleContact.firstName);
+    document.getElementById("deleteButton1").setAttribute("onClick", "");
+    console.log(sampleContact);
+}
+    */
 
     // iterate through contactList and match the name (contact) to delete
     for (var i = 0; i < contactList.length; i++) {
         console.log(contactList[i].id === idNumber);
-        
+//        idNumber = Number(idNumber);
         // if name in a contact is the same, delete it
          if (contactList[i].id === idNumber) {
-        
+        console.log(contactList[i].id);
+             console.log(contactList)
             contactList.splice(i,1);
             console.log(contactList[i].id);
+             console.log(contactList);
          } 
             
     }
     //refresh contact list
-    contactList.forEach(function(index){
     document.getElementById("contactList").innerHTML = '';
-    showList(index);
-        
-    })
-   
+    contactList.forEach(function(index){
+        showList(index);
+       
+    });
+}
     
     
     
     //    $('#contactList').children().each(function(){
 //    $(this).filter('#firstName').remove();
 //   });
-};
+//};
 
 
 
 function addPhone() {
-    alert("works");
+    var addNumberPhone = prompt("Type a number phone: ", "034 232 323");
+    
+    addNumberPhone = Number(addNumberPhone);
+    console.log(typeof addNumberPhone);
+    
+    var addIt = addNumberPhone.toString();
+    if (Number.isInteger(addNumberPhone) === false)
+        alert("It's not a number!")
+    
+    
+    contactList[0].phoneNumber = addNumberPhone;
+    
+/*    var a = contactList.unshift(addNumberPhone);
+    console.log(typeof addNumberPhone);
+    if (addNumberPhone.isInteger === true)
+            contactList[0].phoneNumber = addNumberPhone;*/
+    
+     document.getElementById("contactList").innerHTML = '';
+    contactList.forEach(function(index){
+        showList(index);
+       
+    });
+    
+    console.log(contactList);
+    console.log(typeof addNumberPhone.toString());
+    console.log(Number.isInteger(addNumberPhone));
 }
 
 
