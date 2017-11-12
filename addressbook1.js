@@ -1,7 +1,7 @@
 // turn off the list of a new contact
 document.getElementById("contactList").style.display = "none";
 document.getElementById("contactSubmit").style.display = "none";
-function createContact(id, firstName, lastName, phoneNumber, email) { 
+function createContact(id, firstName, lastName, phoneNumber, email, addNumberPhone) { 
     //assign unique ID to the contact
     uniqueID++;
     return{
@@ -9,6 +9,7 @@ function createContact(id, firstName, lastName, phoneNumber, email) {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
+        addNumberPhone: [addNumberPhone],
         email: email,
         getFullName: function(){
             return firstName + " " + this.lastName;
@@ -52,8 +53,8 @@ function showList(contactObj) {
     
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
-  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
-
+  document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'<button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
+    
   document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><span class="badge badge-secondary" id="email1">'+contactObj.email+'</span><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button></h5></li>';
     
    document.getElementById('contactList').innerHTML += '<button onclick="deleteButton('+contactObj.id+')" style="margin-top:15px" type="button" class="btn btn-danger btn-sm" id="deleteButton">Delete</button></li>'    
@@ -103,7 +104,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     
     //delete sample contact when adding a new contact
         if (contactList[0].id === 0) 
-        contactList.shift();
+        phone.shift();
            
         
   
@@ -179,15 +180,36 @@ function deleteButton(idNumber) {
 function addPhone() {
     var addNumberPhone = prompt("Type a number phone: ", "034 232 323");
     
+    //check if string or number
     addNumberPhone = Number(addNumberPhone);
     console.log(typeof addNumberPhone);
     
-    var addIt = addNumberPhone.toString();
+    var addNewNumber = addNumberPhone.toString();
     if (Number.isInteger(addNumberPhone) === false)
-        alert("It's not a number!")
+        alert("It's not a number!");
+    
+    contactList[0].addNumberPhone.replace(/\,/g,"");
+    var newContact2 = new createContact(addNewNumber);
+    contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" id="phoneNumber1">'+addNewNumber+'</span></button></h5>');
+    contactList[0].addNumberPhone.replace(/\,/g,"");
     
     
-    contactList[0].phoneNumber = addNumberPhone;
+    console.log(contactList);
+    
+    
+    
+/*    document.getElementById("contactList").innerHTML = '';
+    contactList.forEach(function(index){
+        showList(index);
+    });*/
+
+/*    for(var i = 0; i < arrayOfObjects.length; i++) {
+    var obj = arrayOfObjects[i];
+
+    if(listToDelete.indexOf(obj.id) !== -1) {
+        arrayOfObjects.splice(i, 1);
+    }*/
+    
     
 /*    var a = contactList.unshift(addNumberPhone);
     console.log(typeof addNumberPhone);
