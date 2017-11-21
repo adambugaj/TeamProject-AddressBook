@@ -114,7 +114,6 @@ document.getElementById("createNewContact").addEventListener('click', function(e
         
         document.getElementById("contactSubmit").style.display = "block";
         document.getElementById("contactList").style.display = "none";
-        showContact(newContact);
         
          //clear the contact form
  /*        document.getElementById("inputFirstName").value = "";
@@ -234,33 +233,24 @@ function addEmail() {
     
 }
 
-
-
-
 //edit first name
 function editFirstName(editFirstName) {
     
     var editFirst = prompt("Type new first name: ");
     
     for (var i = 0; i < contactList.length; i++) {
- 
-        console.log(typeof editFirstName);
-        console.log(contactList[0].firstName);
-        var editFirstName = editFirstName.toString();
-        console.log(contactList[0].firstName === editFirstName);
         
-    if (editFirst !== null) {
-        if (contactList[i].firstName === editFirstName) {
+        var editFirstName = editFirstName.toString();  
         
-        console.log(contactList[i].firstName);
-        contactList[i].firstName = editFirst;
-        console.log(typeof editFirstName);
-        console.log(contactList[i].firstName);
+    // prevent from accepting empty field and null (cancel button) 
+        if (editFirst !== null && editFirst !== "") {
+            if (contactList[i].firstName === editFirstName) {
+                contactList[i].firstName = editFirst;
         }
     }
     showContactList();   
  }
-}
+}   
 
 function showContactList() {
   // clear contact list content
@@ -276,7 +266,6 @@ function showContactList() {
     document.querySelector("li").style.marginTop = "6px";
   } 
 }
-
 
 
 //other option still need to be fixed
