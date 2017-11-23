@@ -21,21 +21,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
 //unique ID of the sample contact
 var uniqueID = 0;
 
-var sampleContact = {
-    id: uniqueID,
-    firstName: "Bill",
-    lastName: "Door",
-    phoneNumber: "01 294 323 434",
-    email: "billdoor@microsoft.com"
-}
-
-var contactList = [createContact(
-    sampleContact.id,
-    sampleContact.firstName, 
-    sampleContact.lastName,
-    sampleContact.phoneNumber, 
-    sampleContact.email
-)];
+var contactList = [];
 
 function showContact(contactObj) {
     document.getElementById('contactTitle').innerHTML = contactObj.getFullName();    
@@ -48,10 +34,10 @@ function showContact(contactObj) {
 
 //show the list of contacts
 function showList(contactObj) {
-    document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+". " +contactObj.getFullName()+'</h4>';  
-    
+    document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+'. '+contactObj.getFullName()+'</h4>';  
+
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
-    
+
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
     
 
@@ -74,6 +60,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     var inputEmail = document.getElementById("inputEmail").value;
     var phoneNumberString = Number(inputPhoneNumber);
     
+    console.log(inputFirstName);
     //save the contact but first fill all blank spaces
     if (inputFirstName.value === "") {
         alert("Please type first name");
@@ -110,7 +97,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
       document.getElementById("inputLastName").value = "";
       document.getElementById("inputPhoneNumber").value = "";
       document.getElementById("inputEmail").value = "";
-    }
+
         
     document.getElementById("contactSubmit").style.display = "block";
     document.getElementById("contactList").style.display = "none";
@@ -118,6 +105,7 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     //delete sample contact when adding a new contact
     if (contactList[0].id === 0) {
     contactList.shift();
+        }
     }
 
   e.preventDefault();
@@ -125,6 +113,15 @@ document.getElementById("createNewContact").addEventListener('click', function(e
 
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
+
+    // add sample contact
+    if (contactList.length === 0) {
+        
+    var newContact = new createContact(uniqueID, "Bill", "Door", "01 234 323 343", "billdoor@microsoft.com");
+        
+        contactList.push(newContact);
+        showContact(newContact);
+    }
     
     // close the sample contact if shown
     document.getElementById("contactSubmit").style.display = "none";
@@ -134,6 +131,7 @@ document.getElementById('showContactList').addEventListener('click', function(){
 
     // refresh contact list
     showContactList();
+
 });
 
 //check if the duplicate button was clicked
@@ -203,7 +201,7 @@ function addPhone() {
     contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');  
         
         //contactList[0].addNumberPhone.replace(/\,/g,"")
-         console.log(cokntactList);
+
     }
  showContactList()
 }
@@ -214,7 +212,7 @@ function addEmail() {
     var newContact3 = new createContact(getValue)
     console.log(typeof getValue);
     //document.getElementById("email").innerHTML += getValue;
-    contactList[0].addNewEmail.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+getValue+'</span></h5>')
+    contactList[0].addNewEmail.push('<h5><span class="badge badge-secondary"  id="phoneNumber1">'+getValue+'</span></h5>')
     console.log(contactList[0].addNewEmail);
     
     showContactList()
