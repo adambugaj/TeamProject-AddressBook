@@ -30,7 +30,7 @@ function showContact(contactObj) {
     document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
     document.getElementById('email').innerHTML = contactObj.email;
 }
-
+to jest zle albo to tez
 
 //show the list of contacts
 function showList(contactObj) {
