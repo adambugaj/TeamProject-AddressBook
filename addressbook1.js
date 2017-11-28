@@ -13,7 +13,7 @@ function createContact(id, firstName, lastName, phoneNumber, email, addNumberPho
         email: email,
         addNewEmail: [addNewEmail],
         getFullName: function(){
-            return firstName + " " + this.lastName;
+            return firstName + " " + lastName;
         }
     }
 }
@@ -30,15 +30,16 @@ function showContact(contactObj) {
     document.getElementById('phoneNumber').innerHTML = contactObj.phoneNumber;
     document.getElementById('email').innerHTML = contactObj.email;
 }
-to jest zle albo to nie
+
 
 //show the list of contacts
 function showList(contactObj) {
+
     document.getElementById('contactList').innerHTML += '<hr><li class="list-group-item"; id="contactInList"><h4 id="contactTitle1">'+contactObj.id+'. '+contactObj.getFullName()+'</h4>';  
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">First Name:'+'<h5><span class="badge badge-secondary" id="firstName1" >'+contactObj.firstName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editFirstName('+'\''+contactObj.firstName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
 
-    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span></h5></li>';
+    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editLastName('+'\''+contactObj.lastName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'</h5></li>';
@@ -62,6 +63,11 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     
     console.log(inputFirstName);
     //save the contact but first fill all blank spaces
+
+      //create a contact
+      var newContact = new createContact(uniqueID, sampleContact.firstName, sampleContact.lastName, sampleContact.phoneNumber, sampleContact.email);
+
+    
     if (inputFirstName.value === "") {
         alert("Please type first name");
     } 
@@ -97,7 +103,6 @@ document.getElementById("createNewContact").addEventListener('click', function(e
       document.getElementById("inputLastName").value = "";
       document.getElementById("inputPhoneNumber").value = "";
       document.getElementById("inputEmail").value = "";
-
         
     document.getElementById("contactSubmit").style.display = "block";
     document.getElementById("contactList").style.display = "none";
@@ -107,13 +112,12 @@ document.getElementById("createNewContact").addEventListener('click', function(e
     contactList.shift();
         }
     }
-
   e.preventDefault();
 });
 
 //click to show the list of saved contacts
 document.getElementById('showContactList').addEventListener('click', function(){
-
+    
     // add sample contact
     if (contactList.length === 0) {
         
@@ -131,12 +135,11 @@ document.getElementById('showContactList').addEventListener('click', function(){
 
     // refresh contact list
     showContactList();
-
 });
 
 //check if the duplicate button was clicked
 document.querySelector("#contactList").addEventListener('click', function(e){
-  if(e.target.className === 'btn btn-default btn-sm duplicateContact'){  
+  if(e.target.className === 'btn btn-default btn-sm duplicateContact'){
     //get the id of the contact which we want to duplicate
     var id = Number(e.target.id);
       
@@ -175,11 +178,13 @@ function getContactByID(id) {
 };
 
 function deleteButton(idNumber) {
+
     for (var i = 0; i < contactList.length; i++) {
         console.log(contactList[i].id === idNumber);
 
         // if name in a contact is the same, delete it
          if (contactList[i].id === idNumber) {
+             
             contactList.splice(i,1);
          }        
     }
@@ -198,14 +203,11 @@ function addPhone() {
     } 
     else {
     var newContact2 = new createContact(addNewNumber);
-    contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');  
-        
-        //contactList[0].addNumberPhone.replace(/\,/g,"")
-
+    contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" style="position:relative" id="phoneNumber1">'+addNewNumber+'</span></h5>');         
     }
- showContactList()
+    showContactList()
 }
-
+    
 // add new email to exisiting contact
 function addEmail() {
     var getValue = prompt("Add new email: ");
@@ -222,6 +224,7 @@ function addEmail() {
 //edit first name  
 function editFirstName(editFirstName) {
     var editFirst = prompt("Type new first name: ");
+    
     for (var i = 0; i < contactList.length; i++) {
         var editFirstName = editFirstName.toString();  
         
@@ -235,17 +238,45 @@ function editFirstName(editFirstName) {
     showContactList();  
 }   
 
+//edit last name  
+function editLastName(editLastName) {
+    
+    var editLast = prompt("Type new last name: ")
+    
+    for (var i = 0; i < contactList.length; i++) {
+        
+        var editLastName = editLastName.toString();
+        
+        if(contactList[i].lastName === editLastName) {
+            contactList[i].lastName = editLast;
+        }
+    }
+    showContactList(); 
+}
+
+
 function showContactList() {
     // clear contact list content
     document.getElementById('contactList').innerHTML = '';
     // check if contact list is not empty
     if(contactList && contactList.length) {
-    // loop through the array, and display contacts
+      // sort contact list by last name
+      contactList = contactList.sort(compareByName);
+      // loop through the array, and display contacts
         contactList.forEach(function(index){
             showList(index);
         });
+        
     //remove hr and add margin to first contact  
     document.querySelector("hr:first-child").style.display = "none";
     document.querySelector("li").style.marginTop = "6px";
   } 
+}
+
+function compareByName(a, b) {
+  if (a.lastName < b.lastName)
+    return -1;
+  if (a.lastName > b.lastName)
+    return 1;
+  return 0;
 }
