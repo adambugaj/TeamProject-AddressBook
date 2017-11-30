@@ -26,20 +26,56 @@ function saveContact(e) {
     else if (inputEmail === "") {
         alert("Please type email");
     } 
-     else {
+    // check if local storage is empty
+    else if (localStorage.getItem('contactCache') === null) {
 
-      // create a contact
-      var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
+        // create a contact
+        var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
     
-      // add contact to the list of contacts  
-      contactList.push(newContact);
-         
-      // show the contact
+        // add contact to the list of contacts  
+        contactList.push(newContact);
+      
+        // save contact to browser cache in JSON
+        localStorage.setItem('contactCache', JSON.stringify(contactList));
+        
+        // show the contact
+        showSubmitContact(newContact);
+        clearContactForm();
+                   
+    }
+    else {
+        // create a contact
+        var newContact = new createContact(uniqueID, inputFirstName, inputLastName, inputPhoneNumber, inputEmail);
+        
+        // JSON: get contacts from local storage and parse it
+        var getContactCache = JSON.parse(localStorage.getItem('contactList'));
+        
+        // add contact to the list of contacts  
+        contactList.push(newContact);
+       
+        // add new contact to local storage with existing contacts
+        localStorage.setItem('contactCache', JSON.stringify(contactList));
+        
+        // test if works
+        console.log(JSON.parse(localStorage.getItem('contactCache')));
+        
+        // show the contact
+        showSubmitContact(newContact);
+        clearContactForm();
+    }
+    
+  e.preventDefault();
+}
+
+// show the contact
+function showSubmitContact(newContact) {
       document.getElementById("contactSubmit").style.display = "block";
       document.getElementById("contactList").style.display = "none";
       showContact(newContact);
-      
-      // clear the contact form
+}
+
+// clear the contact form
+function clearContactForm() {
       document.getElementById("inputFirstName").value = "";
       document.getElementById("inputLastName").value = "";
       document.getElementById("inputPhoneNumber").value = "";
@@ -47,68 +83,4 @@ function saveContact(e) {
         
       document.getElementById("contactSubmit").style.display = "block";
       document.getElementById("contactList").style.display = "none";
-         console.log(contactList);
-         
-      // delete sample contact when adding a new contact
-      // not needed anymore since we add contact sample through button
-   /*   if (contactList[0].id === 0) {
-      contactList.shift();
-      }*/              
-    }
-     // save contact to browser cache in JSON
-        if (localStorage.getItem('contactStorage') === null) {
-            
-            localStorage.setItem('contactStorage', JSON.stringify(contactList));
-            console.log(contactList);
-            
-        }
-    console.log(contactList);
-    
-  e.preventDefault();
 }
-
-    
-/*
-    var saveFirstName = document.getElementById('inputFirstName').value;
-    var saveLastName = document.getElementById('inputLastName').value;
-    
-    var contactCache = {
-        
-        firstName: saveFirstName,
-        lastName: saveLastName
-        
-    }
-    
-    // add data to local storage test
-    localStorage.setItem(contactCache.firstName[0], contactCache.firstName[1]);
-    // test local storage
-    console.log(localStorage.getItem(contactCache.firstName[0]))
-    // delete from local storage
-    localStorage.removeItem(contactCache.firstName[0]);
-
-   
-    
-    if (localStorage.getItem('contactStorage') === null) {
-        
-        
-        var contactStorage = [];
-        contactStorage.push(contactCache);
-        
-        
-        localStorage.setItem('contactStorage', JSON.stringify(contactStorage));
-        
-    } else {
-        
-        var contactStorage = JSON.parse(localStorage.getItem('contactStorage'));
-
-        contactStorage.push(contactCache);  
-        
-        localStorage.setItem('contactStorage', JSON.stringify(contactStorage));
-        
-        
-    }
-    
-    e.preventDefault();
-}
-
-*/
