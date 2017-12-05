@@ -63,7 +63,7 @@ function getLocalStorage(getContactCache, newContact) {
     for (const cacheContacts of getContactCache) {
         
         contactList.push(cacheContacts);
-        // add contact to the list of contacts  
+        // add contact to the list of contacts.
         
     }
     
