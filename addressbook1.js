@@ -41,8 +41,7 @@ function showList(contactObj) {
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">Last Name:'+'<h5><span class="badge badge-secondary" id="lastName1">'+contactObj.lastName+'</span><button type="button" class="btn btn-defualt" id="editButton" onclick="editLastName('+'\''+contactObj.lastName+'\''+');"><i class="glyphicon glyphicon-edit"></i></button></h5></li>';
     
-
-    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber1">'+contactObj.phoneNumber+'</span>'+contactObj.addNumberPhone+'</h5></li>';
+    document.getElementById('contactList').innerHTML += '<li class="list-group-item">Phone Number:'+'<h5><button onclick="addPhone()" id="addPhone" type="button" class="btn btn-default btn-circle" style="border-radius:30px; float:right; margin-top:-10px;"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="phoneNumber-'+contactObj.id+'">'+contactObj.phoneNumber+'</span></h5></li>';
 
     document.getElementById('contactList').innerHTML += '<li class="list-group-item">Email:'+'<h5><button onclick="addEmail()" id="addEmail" type="button" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-plus"></i></button><span class="badge badge-secondary" id="email">'+contactObj.email+'</span>'+contactObj.addNewEmail+'</h5></li>';
    
@@ -132,19 +131,32 @@ function deleteButton(idNumber) {
 
 // add new number phone to exisiting one
 function addPhone() {
-    var addNumberPhone = prompt("Type a number phone: ");
-    //check if string or number
-    addNumberPhone1 = Number(addNumberPhone);
-
+    // Get string
+    var addNumberPhone = prompt("Type a number phone: ", "034 232 323");    
+    // Change string to number
+    var checkIfNumber = Number(addNumberPhone);
+    
+    // Check if user click cancel
     if (addNumberPhone !== null) {
+        // Check if user submit empty input
         if (addNumberPhone !== "") {
-            if (Number.isInteger(addNumberPhone1) !== false) {
-                var newContact2 = new createContact(addNumberPhone);
-                contactList[0].addNumberPhone.push('<h5><span class="badge badge-secondary" id="phoneNumber1">'+addNumberPhone+'</span></h5>');
+            // Check if string or number
+            if (Number.isInteger(checkIfNumber) !== false) {
+                // Add a next phone number to exact contact
+                contactList.forEach(function(index){
+                    index.phoneNumber.push(addNumberPhone);
+                });
+            } 
+            else {
+                alert("Please, type a phone number");
             }
         }
     }
-    showContactList()
+    // Loop through all phone numbers array
+    for (var i = 0; i < contactList.length; i++) {
+        var showNextContact = contactList[i].phoneNumber[1];
+        showList(showNextContact);
+    }
 }
     
 // add new email to exisiting contact
